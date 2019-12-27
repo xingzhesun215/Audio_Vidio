@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <color name="transparent">#00000000</color>
+
+    <color name="top_bar_normal_bg">#5191FF</color>
+    <color name="divide_line_color">#eeeeee</color>
+    <!--背景颜色-->
+    <color name="scream_bg_color">#f5f5f5</color>
+    <!--主题颜色-->
+    <color name="main_color">#5191FF</color>
+    <!-- 字体颜色值 -->
+    <color name="text_color_main">#5191FF</color>
+    <color name="text_color_blue">#5191FF</color>
+    <color name="text_color_black">#333333</color>
+    <color name="text_middle_black">#666666</color>
+    <color name="text_low_black">#999999</color>
+    <color name="text_color_white">#ffffff</color>
+    <color name="text_color_middle_white">#eeeeee</color>
+    <color name="text_color_gray">#888888</color>
+    <color name="text_color_gray_light">#A8A8A8</color>
+    <color name="text_color_orange">#FF7200</color>
+    <color name="text_color_hint">#ffaaaaaa</color>
+    <color name="text_color_input">#ff111111</color>
+
+    <!-- 黑白色值  -->
+    <color name="white">#ffffff</color>
+    <color name="black">#000000</color>
+    <color name="gray">#808080</color>
+    <color name="gray_hide">#60000000</color>
+    <color name="yellow_lemon">#FFFACD</color>
+    <color name="gray_light">#DFDFDF</color>
+    <color name="gray_white">#F5F5F5</color>
+    <color name="gray_slate">#708090</color>
+    <color name="blue_light">#0083FF</color>
+    <color name="transparent_black">#40000000</color>
+    <color name="black_middle">#BFBFBF</color>
+    <color name="mohucolor">#65000000</color>
+    <color name="focusedtrue">#DBDBDB</color>
+    <color name="presstrue">#EAEAEA</color>
+    <color name="normalback">#FFFFFF</color>
+    <color name="hintcolor">#ACACAC</color>
+
+    <color name="screan_bg_color">#FFFFFF</color>
+    <!-- theme color -->
+    <color name="background_material_light_1">#fafafa</color>
+    <color name="normalBackground">#fff2f4f5</color>
+    <color name="toolbarTextColor">#ffffffff</color>
+    <color name="menu_item_white">#FFFFFF</color>
+    <color name="theme_color_primary_dark">#b85671</color>
+    <color name="playbarProgressColor">@color/themeColor</color>
+
+    <color name="themeColor">#ffce3d3a</color>
+    <color name="text_color">#000000</color>
+
+    <color name="theme_color_main">#A73AFF</color>
+    <color name="theme_color_nromal_main">#A73AFF</color>
+
+    <color name="theme_color_primary">#d20000</color>
+    <color name="theme_color_nromal_primary">#ffa1a1</color>
+
+    <color name="theme_color_pink">#fb7299</color>
+    <color name="theme_color_nromal_pink">#f9b3c7</color>
+
+    <color name="theme_color_orange">#FF9800</color>
+    <color name="theme_color_nromal_orange">#fdd292</color>
+
+    <color name="theme_color_yellow">#FDD835</color>
+    <color name="theme_color_nromal_yellow">#f9e9a3</color>
+
+    <color name="theme_color_green_light">#8BC34A</color>
+    <color name="theme_color_nromal_green_light">#bcd1a4</color>
+
+    <color name="theme_color_green_green">#4CAF50</color>
+    <color name="theme_color_nromal_green_green">#ace2ae</color>
+
+    <color name="theme_color_green_blue">#2196F3</color>
+    <color name="theme_color_nromal_green_blue">#9bd0fa</color>
+
+    <color name="theme_color_purple">#673AB7</color>
+    <color name="theme_color_nromal_purple">#c7acf7</color>
+
+    <color name="pink">#fb7299</color>
+    <color name="pink_dark">#b85671</color>
+    <color name="pink_trans">#99f0486c</color>
+
+    <color name="blue">#2196F3</color>
+    <color name="blue_dark">#1565C0</color>
+    <color name="blue_trans">#B41A78C3</color>
+
+    <color name="purple">#673AB7</color>
+    <color name="purple_dark">#311B92</color>
+    <color name="purple_trans">#99673AB7</color>
+
+
+    <color name="green">#4CAF50</color>
+    <color name="green_dark">#2E7D32</color>
+    <color name="green_trans">#994CAF50</color>
+
+    <color name="green_light">#8BC34A</color>
+    <color name="green_light_dark">#558B2F</color>
+    <color name="green_light_trans">#998BC34A</color>
+
+    <color name="yellow">#FDD835</color>
+    <color name="yellow_dark">#FBC02D</color>
+    <color name="yellow_trans">#99FDD835</color>
+
+    <color name="orange">#FF9800</color>
+    <color name="orange_dark">#EF6C00</color>
+    <color name="orange_trans">#99FF9800</color>
+
+    <color name="red">#F44336</color>
+    <color name="red_dark">#C62828</color>
+    <color name="red_trans">#99F44336</color>
+</resources>

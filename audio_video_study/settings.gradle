@@ -1,0 +1,2 @@
+include ':eg0',':eg1'
+include ':public_lib'

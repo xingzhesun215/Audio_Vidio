@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/load_error_ll"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/scream_bg_color"
+    android:gravity="center"
+    android:orientation="vertical"
+    android:visibility="gone">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:src="@drawable/icon_error_internet" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="10dp"
+        android:text="服务器异常"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_12" />
+
+    <TextView
+        android:id="@+id/loading_again_tv"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/shape_box_grey"
+        android:clickable="true"
+        android:padding="5dp"
+        android:text="重新加载"
+        android:textColor="@color/text_color_gray"
+        android:textSize="@dimen/text_size_12" />
+
+</LinearLayout>
