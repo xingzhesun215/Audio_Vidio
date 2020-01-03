@@ -30,7 +30,7 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
-public abstract class BaseActivity extends Activity implements PermissionUtils.PermissionCallbacks {
+public abstract class BaseActivity extends Activity  {
     private Activity context;
     private Toast toast;
     private LoadingDialog loadingDialog;
@@ -253,29 +253,6 @@ public abstract class BaseActivity extends Activity implements PermissionUtils.P
         }
     }
 
-
-    //6.0权限的玩意，别动，动了会出差
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        PermissionUtils.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
-    }
-
-    @Override
-    public void onPermissionGranted(int requestCode, List<String> perms) {
-    }
-
-    @Override
-    public void onPermissionDenied(int requestCode, List<String> perms) {
-
-        if (PermissionUtils.somePermissionsPermanentlyDenied(this, perms)) {
-            PermissionUtils.onPermissionsPermanentlyDenied(this, "此功能必须要该权限，请在设置界面勾选", "权限申请",
-                    getString(android.R.string.ok),
-                    getString(android.R.string.cancel),
-                    400);
-        }
-    }
-    //6.0权限的玩意，别动，动了会出差
 
 
     private ArrayList<ThemeStateListener> mListener = new ArrayList<>();

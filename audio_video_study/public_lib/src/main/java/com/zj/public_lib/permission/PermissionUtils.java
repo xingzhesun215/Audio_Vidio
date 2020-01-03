@@ -2,14 +2,10 @@ package com.zj.public_lib.permission;
 
 import android.annotation.TargetApi;
 import android.app.Activity;
-import android.app.AlertDialog;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.support.annotation.NonNull;
-import android.support.annotation.RequiresApi;
-import android.support.annotation.StringRes;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -17,24 +13,21 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 
-import com.zj.public_lib.utils.Logutil;
 
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
+
 /**
- * author: Chen Wei
- * time: 16/11/7
- * desc: 描述
+ * author: sun
+ * desc:
  */
 
 public class PermissionUtils {
 
     private static final String TAG = PermissionUtils.class.getCanonicalName();
-    private static final String DIALOG_TAG = "RationaleDialogFragmentCompat";
 
     public interface PermissionCallbacks extends ActivityCompat.OnRequestPermissionsResultCallback {
 
@@ -59,90 +52,14 @@ public class PermissionUtils {
         return true;
     }
 
-    public static void requestPermissions(final Object object, String rationale, final int requestCode, final String... perms) {
-        requestPermissions(object, rationale, android.R.string.ok, android.R.string.cancel, requestCode, perms);
-    }
 
-    public static void requestPermissions(final Object object, String rationale, int positiveButton, int negativeButton, final int requestCode, final String... perms) {
+    public static void requestPermissions(final Object object, final int requestCode, final String... perms) {
         checkCallingObjectSuitability(object);
 
-        boolean shouldShowRationale = false;
-        for (String perm : perms) {
-            shouldShowRationale = shouldShowRequestPermissionRationale(object, perm);
-        }
-
-        if (shouldShowRationale) {
-            // 提示申请权限缘由
-            if (getSupportFragmentManager(object) != null) {
-                showRationaleDialogFragmentCompat(getSupportFragmentManager(object),
-                        rationale, positiveButton, negativeButton, requestCode, perms);
-            } else if (getFragmentManager(object) != null) {
-                showRationaleDialogFragment(getFragmentManager(object),
-                        rationale, positiveButton, negativeButton, requestCode, perms);
-            } else {
-                showRationaleAlertDialog(object, rationale, positiveButton, negativeButton, requestCode, perms);
-            }
-        } else {
-            // 直接申请权限
-            executePermissionsRequest(object, perms, requestCode);
-        }
+        executePermissionsRequest(object, perms, requestCode);
     }
 
-    @RequiresApi(Build.VERSION_CODES.HONEYCOMB)
-    private static void showRationaleDialogFragmentCompat(@NonNull final FragmentManager fragmentManager,
-                                                          @NonNull String rationale,
-                                                          @StringRes int positiveButton,
-                                                          @StringRes int negativeButton,
-                                                          final int requestCode,
-                                                          @NonNull final String... perms) {
-        RationaleDialogFragmentCompat fragment = RationaleDialogFragmentCompat
-                .newInstance(positiveButton, negativeButton, rationale, requestCode, perms);
-        fragment.show(fragmentManager, DIALOG_TAG);
-    }
 
-    @RequiresApi(api = Build.VERSION_CODES.HONEYCOMB)
-    private static void showRationaleDialogFragment(@NonNull final android.app.FragmentManager fragmentManager,
-                                                    @NonNull String rationale,
-                                                    @StringRes int positiveButton,
-                                                    @StringRes int negativeButton,
-                                                    final int requestCode,
-                                                    @NonNull final String... perms) {
-        RationaleDialogFragment fragment = RationaleDialogFragment
-                .newInstance(positiveButton, negativeButton, rationale, requestCode, perms);
-        fragment.show(fragmentManager, DIALOG_TAG);
-    }
-
-    private static void showRationaleAlertDialog(@NonNull final Object object,
-                                                 @NonNull String rationale,
-                                                 @StringRes int positiveButton,
-                                                 @StringRes int negativeButton,
-                                                 final int requestCode,
-                                                 @NonNull final String... perms) {
-        Activity activity = getActivity(object);
-        if (activity == null) {
-            throw new IllegalStateException("Can't show rationale dialog for null Activity");
-        }
-
-        new AlertDialog.Builder(activity)
-                .setCancelable(false)
-                .setMessage(rationale)
-                .setPositiveButton(positiveButton, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        executePermissionsRequest(object, perms, requestCode);
-                    }
-                })
-                .setNegativeButton(negativeButton, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        if (object instanceof PermissionCallbacks) {
-                            ((PermissionCallbacks) object).onPermissionDenied(requestCode, Arrays.asList(perms));
-                        }
-                    }
-                })
-                .create()
-                .show();
-    }
 
     @TargetApi(23)
     static void executePermissionsRequest(Object object, String[] perms, int requestCode) {
@@ -202,9 +119,8 @@ public class PermissionUtils {
                 AfterPermissionGranted ann = method.getAnnotation(AfterPermissionGranted.class);
                 if (ann.value() == requestCode) {
                     if (method.getParameterTypes().length > 0) {
-                        throw new RuntimeException(
-                                "Cannot execute method" + method.getName() + " because it is non-void method and/or has input parameters."
-                        );
+                        Log.e("ME", "Cannot execute method " + method.getName() + " because it is non-void method and/or has input parameters.");
+                        break;
                     }
 
                     try {
@@ -226,8 +142,8 @@ public class PermissionUtils {
     private static boolean shouldShowRequestPermissionRationale(Object object, String perm) {
         if (object instanceof Activity) {
             return ActivityCompat.shouldShowRequestPermissionRationale((Activity) object, perm);
-        } else if (object instanceof android.support.v4.app.Fragment) {
-            return ((android.support.v4.app.Fragment) object).shouldShowRequestPermissionRationale(perm);
+        } else if (object instanceof Fragment) {
+            return ((Fragment) object).shouldShowRequestPermissionRationale(perm);
         } else if (object instanceof android.app.Fragment) {
             return ((android.app.Fragment) object).shouldShowRequestPermissionRationale(perm);
         } else {
@@ -239,8 +155,8 @@ public class PermissionUtils {
     private static Activity getActivity(Object object) {
         if (object instanceof Activity) {
             return ((Activity) object);
-        } else if (object instanceof android.support.v4.app.Fragment) {
-            return ((android.support.v4.app.Fragment) object).getActivity();
+        } else if (object instanceof Fragment) {
+            return ((Fragment) object).getActivity();
         } else if (object instanceof android.app.Fragment) {
             return ((android.app.Fragment) object).getActivity();
         } else {
@@ -248,10 +164,10 @@ public class PermissionUtils {
         }
     }
 
-    private static android.support.v4.app.FragmentManager getSupportFragmentManager(Object object) {
-        if (object instanceof android.support.v4.app.FragmentActivity) {
+    private static FragmentManager getSupportFragmentManager(Object object) {
+        if (object instanceof FragmentActivity) {
             return ((FragmentActivity) object).getSupportFragmentManager();
-        } else if (object instanceof android.support.v4.app.Fragment) {
+        } else if (object instanceof Fragment) {
             return ((Fragment) object).getChildFragmentManager();
         }
         return null;
@@ -295,50 +211,8 @@ public class PermissionUtils {
         return !shouldShowRequestPermissionRationale(object, deniedPermission);
     }
 
-    public static void onPermissionsPermanentlyDenied(@NonNull Activity activity,
-                                                      @NonNull String rationale,
-                                                      @NonNull String title,
-                                                      @NonNull String positiveButton,
-                                                      @NonNull String negativeButton,
-                                                      int requestCode) {
-        new AppSettingsDialog.Builder(activity, rationale)
-                .setTitle(title)
-                .setPositiveButton(positiveButton)
-                .setNegativeButton(negativeButton, null)
-                .setRequestCode(requestCode)
-                .build()
-                .show();
-    }
 
-    public static void onPermissionsPermanentlyDenied(@NonNull android.app.Fragment fragment,
-                                                      @NonNull String rationale,
-                                                      @NonNull String title,
-                                                      @NonNull String positiveButton,
-                                                      @NonNull String negativeButton,
-                                                      int requestCode) {
-        new AppSettingsDialog.Builder(fragment, rationale)
-                .setTitle(title)
-                .setPositiveButton(positiveButton)
-                .setNegativeButton(negativeButton, null)
-                .setRequestCode(requestCode)
-                .build()
-                .show();
-    }
 
-    public static void onPermissionsPermanentlyDenied(@NonNull Fragment fragment,
-                                                      @NonNull String rationale,
-                                                      @NonNull String title,
-                                                      @NonNull String positiveButton,
-                                                      @NonNull String negativeButton,
-                                                      int requestCode) {
-        new AppSettingsDialog.Builder(fragment, rationale)
-                .setTitle(title)
-                .setPositiveButton(positiveButton)
-                .setNegativeButton(negativeButton, null)
-                .setRequestCode(requestCode)
-                .build()
-                .show();
-    }
 
 
     private static void checkCallingObjectSuitability(Object object) {
@@ -347,7 +221,7 @@ public class PermissionUtils {
         }
 
         boolean isActivity = object instanceof Activity;
-        boolean isSupportFragment = object instanceof android.support.v4.app.Fragment;
+        boolean isSupportFragment = object instanceof Fragment;
         boolean isAppFragment = object instanceof android.app.Fragment;
         boolean isMinSdkM = Build.VERSION.SDK_INT >= Build.VERSION_CODES.M;
 
@@ -360,5 +234,26 @@ public class PermissionUtils {
                         "Caller must be an Activity or a Fragment");
             }
         }
+    }
+
+    public static String notifyMessage(List<String> permissions) {
+        if (permissions == null || permissions.size() == 0) {
+            return null;
+        }
+        StringBuffer sb = new StringBuffer();
+        sb.append("没有使用");
+        for (int i = 0; i < permissions.size(); i++) {
+            String permission = permissions.get(i);
+            if (!sb.toString().contains("sd") && (permission.contains("WRITE_EXTERNAL_STORAGE") || permission.contains("READ_EXTERNAL_STORAGE"))) {
+                sb.append("读写sd卡、");
+            }
+            if (permission.contains("CAMERA")) {
+                sb.append("摄像头、");
+            }
+            if (permission.contains("LOCATION")) {
+                sb.append("定位、");
+            }
+        }
+        return sb.substring(0, sb.length() - 1) + "的权限,请在权限管理中开启";
     }
 }
