@@ -1,0 +1,53 @@
+1 了解OpenGL ES
+谈到OpenGL ES，首先我们应该先去了解一下Android的基本架构，
+里我们可以找到Libraries里面有我们目前要接触的库，即OpenGL ES。
+根据上图可以知道Android 目前是支持使用开放的图形库的，特别是通过OpenGL ES API来支持高性能的2D和3D图形。
+OpenGL是一个跨平台的图形API。为3D图形处理硬件指定了一个标准的软件接口。OpenGL ES 是适用于嵌入式设备的OpenGL规范。
+Android 支持OpenGL ES API版本的详细状态是：
+
+OpenGL ES 1.0 和 1.1 能够被Android 1.0及以上版本支持
+OpenGL ES 2.0 能够被Android 2.2及更高版本支持
+OpenGL ES 3.0 能够被Android 4.3及更高版本支持
+OpenGL ES 3.1 能够被Android 5.0及以上版本支持
+
+
+
+2 OpenGL ES使用
+在了解OpenGL的使用之前，我们需要了解两个基本类别的Android框架：GLSurfaceView和GLSurfaceView.Renderer。
+
+2.1 GLSurfaceView
+GLSurfaceView从名字就可以看出，它是一个SurfaceView。看源码可知，GLSurfaceView继承自SurfaceView，并增加了Renderer，它的作用就是专门为OpenGL显示渲染使用的。
+
+2.2 GLSurfaceView.Renderer
+此接口定义了在GLSurfaceView中绘制图形所需的方法。您必须将此接口的实现作为单独的类提供，并使用GLSurfaceView.setRenderer()将其附加到您的GLSurfaceView实例。
+
+GLSurfaceView.Renderer要求实现以下方法：
+
+onSurfaceCreated()：创建GLSurfaceView时，系统调用一次该方法。使用此方法执行只需要执行一次的操作，例如设置OpenGL环境参数或初始化OpenGL图形对象。
+onDrawFrame()：系统在每次重画GLSurfaceView时调用这个方法。使用此方法作为绘制（和重新绘制）图形对象的主要执行方法。
+onSurfaceChanged()：当GLSurfaceView的发生变化时，系统调用此方法，这些变化包括GLSurfaceView的大小或设备屏幕方向的变化。
+例如：设备从纵向变为横向时，系统调用此方法。我们应该使用此方法来响应GLSurfaceView容器的改变。
+介绍完了GlSurfaceView和GlSurfaceView.renderer之后，接下来说下如何使用GlSurfaceView：
+
+1、创建一个GlSurfaceView
+2、为这个GlSurfaceView设置渲染
+3、在GlSurfaceView.renderer中绘制处理显示数据
+
+
+
+3 OpenGL ES绘制图形
+3.1 OpenGL ES环境搭建
+为了在Android应用程序中使用OpenGL ES绘制图形，必须要为他们创建一个视图容器。其中最直接或者最常用的方式就是实现一个GLSurfaceView和一个GLSurfaceView.Renderer。
+GLSurfaceView是用OpenGL绘制图形的视图容器，GLSurfaceView.Renderer控制在该视图内绘制的内容。
+
+3.1.1 在Manifest中声明OpenGL ES使用
+了让你的应用程序能够使用OpenGL ES 2.0的API，你必须添加以下声明到manifest：
+
+<uses-feature android:glEsVersion="0x00020000" android:required="true" />
+如果你的应用程序需要使用纹理压缩，你还需要声明你的应用程序需要支持哪种压缩格式，以便他们安装在兼容的设备上。
+
+<supports-gl-texture android:name="GL_OES_compressed_ETC1_RGB8_texture" />
+<supports-gl-texture android:name="GL_OES_compressed_paletted_texture" />
+3.1.2 创建一个Activity 用于展示OpenGL ES 图形
+使用OpenGL ES的应用程序的Activity和其他应用程的Activity一样，不同的地方在于你设置的Activity的布局。
+在许多使用OpenGL ES的app中，你可以添加TextView，Button和ListView，还可以添加GLSurfaceView。
