@@ -22,9 +22,9 @@ public class MediaExtractorMediaMuxerActivity extends AppCompatActivity {
     /**
      * MediaExtractor主要用于提取音视频相关信息，分离音视频。
      * MediaMuxer主要复用和解复用音视频。
-     *
-     *
-     *
+     * <p>
+     * <p>
+     * <p>
      * MediaExtractor使用一般步骤
      * 1.//设置数据源
      * setDataSource
@@ -313,7 +313,7 @@ public class MediaExtractorMediaMuxerActivity extends AppCompatActivity {
             }
             videoExtractor.unselectTrack(videoTrackIndex);
             videoExtractor.selectTrack(videoTrackIndex);
-
+            log("开始写入视频");
             while (true) {
                 int readVideoSampleSize = videoExtractor.readSampleData(byteBuffer, 0);
                 if (readVideoSampleSize < 0) {
@@ -326,6 +326,8 @@ public class MediaExtractorMediaMuxerActivity extends AppCompatActivity {
                 mediaMuxer.writeSampleData(writeVideoTrackIndex, byteBuffer, videoBufferInfo);
                 videoExtractor.advance();
             }
+            log("结束写入视频");
+            log("开始写入音频");
 
             while (true) {
                 int readAudioSampleSize = audioExtractor.readSampleData(byteBuffer, 0);
@@ -343,6 +345,8 @@ public class MediaExtractorMediaMuxerActivity extends AppCompatActivity {
             mediaMuxer.release();
             videoExtractor.release();
             audioExtractor.release();
+            log("结束写入音频");
+            log("合并完成");
 
         } catch (Exception e) {
 
