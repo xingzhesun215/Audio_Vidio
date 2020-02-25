@@ -3,4 +3,7 @@
     <color name="colorPrimary">#FFFFFF</color>
     <color name="colorPrimaryDark">#00FFFFFF</color>
     <color name="colorAccent">#A73AFF</color>
+    <color name="iTextColor3">#848484</color>
+    <color name="iTextColor5">#7f333336</color>
+    <color name="iTextColor6">#f0b017</color>
 </resources>

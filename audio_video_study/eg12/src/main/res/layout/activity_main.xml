@@ -11,6 +11,8 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Hello World!" />
+        android:onClick="previewClick"
+        android:padding="@dimen/margin_med"
+        android:text="学习 Android 图形图像架构，能够使用 GLSurfaceviw 绘制 Camera 预览画面" />
 
 </LinearLayout>

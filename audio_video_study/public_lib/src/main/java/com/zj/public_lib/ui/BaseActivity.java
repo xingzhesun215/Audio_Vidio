@@ -8,6 +8,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.ActivityCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.TextUtils;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -30,7 +31,7 @@ import java.util.List;
 
 import de.greenrobot.event.EventBus;
 
-public abstract class BaseActivity extends Activity  {
+public abstract class BaseActivity extends Activity {
     private Activity context;
     private Toast toast;
     private LoadingDialog loadingDialog;
@@ -164,6 +165,7 @@ public abstract class BaseActivity extends Activity  {
 
     // 左边按钮的点击事件 (返回按钮)
     public class OnLeftButtonClickListener implements HeaderLayout.onLeftClickListener {
+        @TargetApi(Build.VERSION_CODES.LOLLIPOP)
         @Override
         public void onClick() {
             ActivityCompat.finishAfterTransition(context);
@@ -252,7 +254,6 @@ public abstract class BaseActivity extends Activity  {
             mListener.clear();
         }
     }
-
 
 
     private ArrayList<ThemeStateListener> mListener = new ArrayList<>();

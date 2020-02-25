@@ -2,6 +2,15 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sun.eg8">
 
+    <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+
+    <uses-feature android:name="android.hardware.camera2.full" />
+
+    <uses-feature android:name="android.hardware.camera" />
+
     <application
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
@@ -9,13 +18,34 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name="com.sun.eg8.MainActivity">
+        <activity android:name=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".system.SystemCameraActivity" />
+        <activity android:name=".system.TakePhotoActivity" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="com.sun.eg8.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true">
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/file_paths" />
+        </provider>
+
+        <activity android:name=".system.TakeVideoActivity" />
+        <activity android:name=".camera.CameraActivity" />
+        <activity android:name=".camera2.Camera2Activity" />
+        <activity android:name=".video_encode_decode.EncodeAndDecodeActivity" />
+        <activity android:name=".video_encode_decode.encode.camera2.EncodeYUVToH264Activity2" />
+        <activity android:name=".video_encode_decode.encode.camera.EncodeYUVToH264Activity" />
+        <activity android:name=".video_encode_decode.decode.DecodeH264ToSurfaceViewActivity" />
+        <activity android:name=".video_encode_decode.decode.DecodeH264ToTextureViewActivity" />
     </application>
 
 </manifest>

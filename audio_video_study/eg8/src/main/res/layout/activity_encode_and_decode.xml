@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Button
+        android:id="@+id/button9"
+        android:layout_width="212dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="114dp"
+        android:onClick="startEncodeCamera"
+        android:text="Camera数据编码yuv为H.264数据视频" />
+
+    <Button
+        android:id="@+id/button10"
+        android:layout_width="212dp"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="49dp"
+        android:onClick="startEncodeCamera2"
+        android:text="Camera2数据编码YUV为H.264数据视频" />
+
+    <Button
+        android:id="@+id/button11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:onClick="decodeVideo"
+        android:text="Decode H.264 到SurfaceView上面" />
+
+    <Button
+        android:id="@+id/button12"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="50dp"
+        android:onClick="decodeVideoToTextureView"
+        android:text="Decode H.264到TextureView上面" />
+
+</LinearLayout>
